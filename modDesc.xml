@@ -3,17 +3,17 @@
     <version>7.3.0.2</version>
 	<author><![CDATA[Courseplay.devTeam]]></author>
 	<title>
-		<en>CoursePlay</en>
-		<cs>自动作业</cs>
-		<ct>自動作業</ct>
-		<hu>CoursePlay - A Vezetősegéd</hu>
-		<jp>コースプレイ</jp>
-		<kr>코스 플레이</kr>
+		<en>CoursePlay - Chopper Support</en>
+		<cs>自动作业 - Chopper Support</cs>
+		<ct>自動作業 - Chopper Support</ct>
+		<hu>CoursePlay - A Vezetősegéd - Chopper Support</hu>
+		<jp>コースプレイ - Chopper Support</jp>
+		<kr>코스 플레이 - Chopper Support</kr>
 	</title>
 
     <description>
 <en>
-<![CDATA[Courseplay FS22
+<![CDATA[Courseplay FS22 - Chopper Support
 Courseplay takes the AI worker to the next level. Sow, harvest and plow smarter:
 - use headlands
 - work on irregularly shaped fields, not just rectangles
@@ -112,7 +112,7 @@ Changelog 7.1.0.0:
 ]]>
 </en>
 <de>
-<![CDATA[Courseplay FS22
+<![CDATA[Courseplay FS22 - Chopper Support
 Courseplay hebt den Helfer auf ein ganz neues Level. Säen, ernten und pflügen Sie intelligenter:
 - Nutze Vorgewende
 - Arbeite auf nicht rechteckigen Feldern
