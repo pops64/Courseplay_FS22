@@ -1,16 +1,11 @@
-# Courseplay Beta for Farming Simulator 2022
+# Courseplay Beta with Chopper Support for Farming Simulator 2022
 
-[![Modhub release (latest by date)](https://img.shields.io/badge/dynamic/xml?color=blue&style=flat-square&label=Modhub+Release&prefix=v&query=%2F%2Fdiv%5B%40class%3D%27table-cell%27%5D%5B2%5D%5Bcontains%28text%28%29%2C%227.%22%29%5D&url=https%3A%2F%2Fwww.farming-simulator.com%2Fmod.php%3Flang%3Dde%26country%3Dde%26mod_id%3D248390%26title%3Dfs2022)](https://www.farming-simulator.com/mod.php?lang=de&country=de&mod_id=248390&title=fs2022)
-[![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/Courseplay/Courseplay_FS22?include_prereleases&style=flat-square&label=Github+Release)](https://github.com/Courseplay/Courseplay_FS22/releases/latest)
-[![GitHub Pre-Releases (by Asset)](https://img.shields.io/github/downloads-pre/Courseplay/Courseplay_FS22/latest/FS22_Courseplay.zip?style=flat-square)](https://github.com/Courseplay/Courseplay_FS22/releases/latest/download/FS22_Courseplay.zip)
-[![GitHub issues](https://img.shields.io/github/issues/Courseplay/Courseplay_FS22?style=flat-square)](https://github.com/Courseplay/Courseplay_FS22/issues)
-
-**[Download the latest developer version](https://github.com/Courseplay/Courseplay_FS22/releases/latest)** (the file FS22_Courseplay.zip).
-
-**[Courseplay Website](https://courseplay.github.io/Courseplay_FS22.github.io/)**
+This is an unofficial version of CP that includes chopper support. It will be mainited to the offical repo as best as possible. If enough interest is show further development will continue.
+Please post any bugs related to Combine/Chopper Drivers including there unloaders in this fork as there is enough of a departure from official CP that I will do my best to handle them
 
 ## What Works
 
+* Chopper Support
 * **Multiplayer support**
 * Fieldwork and vine work with courses from the course generator.
 * Course manager for saving/loading/renaming/moving and deleting of courses.
@@ -67,26 +62,10 @@ Be as specific as possible:
 * Post! The! Log! to [Gist](https://gist.github.com/) or [PasteBin](http://pastebin.com/)
 * For more details on how to post a proper bug report, visit our [Wiki](https://github.com/Courseplay/Courseplay_FS22/wiki)
 
-## Help Us Out
-
-We work long, hard, in our own free time at developing and improving Courseplay. If you like the project, show us your undying love:
-
-[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=7PDM2P6HQ5D56&item_name=Promote+the+development+of+Courseplay&currency_code=EUR&source=url)
-
 ___
 
 ## Contributors
 
 See [Contributors](/Contributors.md)
 
-___
 
-## Supporters
-
-People and teams who support us
-
-* Ameyer1233 [ModHoster Profile](https://www.modhoster.de/community/user/meyer123)
-
-* Burning Gamers [YouTube Channel](https://www.youtube.com/c/BurningGamersde/featured)
-
-* Mario Hirschfeld [YouTube Channel](https://www.youtube.com/c/MarioHirschfeld/featured)
