@@ -1,7 +1,7 @@
 # Courseplay Beta with Chopper Support for Farming Simulator 2022
 
-This is an unofficial version of CP that includes chopper support. It will be mainited to the offical repo as best as possible. If enough interest is show further development will continue.
-Please post any bugs related to Combine/Chopper Drivers including there unloaders in this fork as there is enough of a departure from official CP that I will do my best to handle them
+This is an unofficial version of CP that includes chopper support. It will be kept in sync to the offical repo as best as possible. If enough interest is shown further development will continue.
+If using this version please post any bugs related to Combine/Chopper Drivers including their unloaders in this fork as there is enough of a departure from official CP that I will do my best to handle them. All other bugs try to reproduce them in the offical version and post in there. If not post them here and I will take a look
 
 ## What Works
 
