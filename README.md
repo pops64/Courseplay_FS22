@@ -3,7 +3,7 @@
 This is an unofficial version of CP that includes chopper support. It will be kept in sync to the offical repo as best as possible. If enough interest is shown further development will continue.
 If using this version please post any bugs related to Combine/Chopper Drivers including their unloaders in this fork as there is enough of a departure from official CP that I will do my best to handle them. All other bugs try to reproduce them in the offical version and post in their fork. If not post them here and I will take a look
 
-You can downlad [here](https://github.com/pops64/Courseplay_FS22/archive/refs/heads/ChopperSupport.zip) 
+You can download [here](https://github.com/pops64/Courseplay_FS22/archive/refs/heads/ChopperSupport.zip) 
 
 ## What Works
 
