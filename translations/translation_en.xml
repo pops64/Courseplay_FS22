@@ -65,8 +65,8 @@
     <text name="CP_combineUnloaderJobParameters_subTitle_unloadTarget" text="Unload: "/>
     <text name="CP_combineUnloaderJobParameters_unloadTarget_title" text="Unload:"/>
     <text name="CP_combineUnloaderJobParameters_unloadTarget_combine" text="Combine"/>
-    <text name="CP_combineUnloaderJobParameters_unloadTarget_siloLoader" text="Loader"/>
     <text name="CP_combineUnloaderJobParameters_unloadTarget_chopper" text="Chopper"/>
+    <text name="CP_combineUnloaderJobParameters_unloadTarget_siloLoader" text="Loader"/>
     <text name="CP_combineUnloaderJobParameters_subTitle_giantsUnloader" text="Giants unloader:"/>
     <text name="CP_combineUnloaderJobParameters_useGiantsUnload_title" text="Use giants unloader:"/>
     <text name="CP_combineUnloaderJobParameters_unloadingStation_title" text="Unloading station:"/>
@@ -752,7 +752,6 @@ Attention: As soon as you release the mouse button, the waypoints will be set, t
     <text name="CP_help_page_unloader_title" text="Harvester unloader"/>
     <text name="CP_help_page_unloaderGeneral_text" text="
 The unloader mode of Courseplay works with combines, harvesters and towed harvesters driven by Courseplay.
-It does not work with choppers.
 You can either use a regular trailer or an auger wagon to unload a combine.
 To empty trailers, you can use the Giants Helper or AutoDrive.
 Starting the unloader requires a few things:
