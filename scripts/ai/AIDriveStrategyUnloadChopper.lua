@@ -863,3 +863,4 @@ function AIDriveStrategyUnloadChopper:isOkToStartUnloadingCombine()
         return false
     end
 end
+  
