@@ -26,6 +26,9 @@
 
 Logo Design by Finals Farming
 
+### Community Manager
+* Tensuko
+
 ___
 
 ### Former Developers
