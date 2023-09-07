@@ -1,6 +1,9 @@
 ## Credits
-### Developers
-* [Tensuko](https://github.com/Tensuko)
+
+### Chopper Support Developer
+* Pops64
+  
+### Offical CP Developers
 * [pvaiko](https://github.com/pvaiko)
 * [schwiti6190](https://github.com/schwiti6190)
 
