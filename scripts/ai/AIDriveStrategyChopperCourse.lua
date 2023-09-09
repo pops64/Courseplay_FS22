@@ -259,9 +259,10 @@ end
 
 function AIDriveStrategyChopperCourse:checkPipeOffsetXForFruit(ix)
     -- We can't use self.fruitRight and self.fruitLeft as theses are only reliable during harvesting.
-    -- Pipe in fruit map can't be used on headlands so always use hasFruit and isn't generated for Choppers correctly
+    -- Pipe in fruit map can't be used on headland and isn't generated for Choppers correctly
     -- Instead use the has Pathfinder Utility hasFruit() which is accessed by the parent class functions
-    -- If fruit is found using our current pipe offset update to the opposite side
+    -- If fruit/no field is found using our current pipe offset update to the opposite side and check again
+    -- Use chase mode if both sides have fruit as we are probably in a land row
    
     -- Reset the pipeoffset if we were being chased by a unloader driver.
     if self.pipeOffsetX == 0 then
@@ -779,25 +780,26 @@ function AIDriveStrategyChopperCourse:updateChopperFillType()
 end
 
 
+-- TODO Fix this currently any trailer in range will cause the chopper to drive
 -- This is current broken and any trailer nearby will cause it to be true. Maybe it is not .vehicle but a get implements to return the trailer object instead?
 function AIDriveStrategyChopperCourse:isChopperWaitingForUnloader()
     local trailer, targetObject = self:nearestChopperTrailer()
     local dischargeNode = self.pipeController:getDischargeNode()
     self:debugSparse('%s %s', dischargeNode, self:isAnyWorkAreaProcessing())
     if not (targetObject == nil or trailer == nil) then 
-        if targetObject and targetObject.rootVehicle.getIsCpActive and targetObject.rootVehicle:getIsCpActive() then
-            local strategy = targetObject.rootVehicle:getCpDriveStrategy()
-            if strategy.isAChopperUnloadAIDriver
-                and self:getCurrentUnloader()
-                and self:getCurrentUnloader().vehicle == targetObject.rootVehicle 
-                and self:getCurrentUnloader():readyToReceive() then
-                    self:debugSparse('Chopper has a CP Driven trailer now, continue')
-                    return false
-            end
-        else
-            self:debugSparse('Chopper has a non CP Driven trailer now, continue')
+        -- if targetObject and targetObject.rootVehicle.getIsCpActive and targetObject.rootVehicle:getIsCpActive() then
+        --     local strategy = targetObject.rootVehicle:getCpDriveStrategy()
+        --     if strategy.isAChopperUnloadAIDriver
+        --         and self:getCurrentUnloader()
+        --         and self:getCurrentUnloader().vehicle == targetObject.rootVehicle 
+        --         and self:getCurrentUnloader():readyToReceive() then
+        --             self:debugSparse('Chopper has a CP Driven trailer now, continue')
+        --             return false
+        --     end
+        -- else
+            self:debugSparse('Chopper has a trailer now, continue')
             return false
-        end
+        -- end
     end
     self:debugSparse('Chopper waiting for trailer, discharge node %s, target object %s, trailer %s',
                 tostring(dischargeNode), tostring(targetObject), tostring(trailer))
