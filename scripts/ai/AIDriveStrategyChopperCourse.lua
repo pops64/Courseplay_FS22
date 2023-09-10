@@ -160,7 +160,7 @@ end
 
 --- Called when the last waypoint of a course is passed, Non of the parent logic applies to us just call the fieldwork function
 -- 
-function AIDriveStrategyCombineCourse:onLastWaypointPassed()
+function AIDriveStrategyChopperCourse:onLastWaypointPassed()
     AIDriveStrategyFieldWorkCourse.onLastWaypointPassed(self)
 end
 
