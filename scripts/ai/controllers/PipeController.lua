@@ -314,8 +314,8 @@ function PipeController:calcPipeOffset(targetNode)
     else 
         --- Pipe is installed on an implement.
         self:debug("The pipe is installed on an implement.")
-        local implementPipeOffsetZ
-        pipeOffsetX, _, OffsetZ = localToLocal(targetNode, 
+        local implementPipeOffsetZ = 0
+        pipeOffsetX, _, implementPipeOffsetZ = localToLocal(targetNode, 
             self.implement.rootNode, 0, 0, 0)
         local dist = ImplementUtil.getDistanceToImplementNode(self.vehicle:getAIDirectionNode(),
             self.implement, self.implement.rootNode)

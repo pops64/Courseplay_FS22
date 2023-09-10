@@ -330,7 +330,7 @@ function AIDriveStrategyUnloadChopper:startMovingAwayFromChopper(newState, combi
 
     -- Check to see if we are snugged up against the chopper if we are just back away
     if combine and combine.getCpDriveStrategy and combine:getCpDriveStrategy():getChaseMode() then
-        local backupMultipler = combine:getCpDriveStrategy():getLandRow() and 2.5 or 2
+        local backupMultipler = combine:getCpDriveStrategy():getLandRow() and 3 or 2
         self:debug('startMovingAwayFromChopper: Create reverse course to back away, Backup Multipler %.1f',backupMultipler )
         self.driveAwayFromChopperCourse = Course.createStraightReverseCourse(self.vehicle, self.turningRadius * backupMultipler )
        -- If we have a land row we also have to turn around this is to ease pathfinder calculation
@@ -728,7 +728,7 @@ function AIDriveStrategyUnloadChopper:call(combine, waypoint)
             -- We need to include the currentUnloader as ignore vehicle chances are it will be out of the way when we get there
             self:startPathfinding(self.rendezvousWaypoint, xOffset, zOffset,
                     CpFieldUtil.getFieldNumUnderVehicle(self.combineToUnload),
-                    { self.combineToUnload, self.combineToUnload:getCpDriveStrategy():getCurrentUnloader().vehicle }, self.onPathfindingDoneToMovingCombine)
+                    {self.combineToUnload, self.combineToUnload:getCpDriveStrategy():getCurrentUnloader() and self.combineToUnload:getCpDriveStrategy():getCurrentUnloader().vehicle}, self.onPathfindingDoneToMovingCombine)
             return true
         else
             self:debug('call: Rendezvous waypoint to moving combine too close, wait a bit')
