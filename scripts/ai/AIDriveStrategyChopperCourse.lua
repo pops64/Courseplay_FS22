@@ -781,27 +781,28 @@ end
 
 
 -- TODO Fix this currently any trailer in range will cause the chopper to drive
--- This is current broken and any trailer nearby will cause it to be true. Maybe it is not .vehicle but a get implements to return the trailer object instead?
 function AIDriveStrategyChopperCourse:isChopperWaitingForUnloader()
     local trailer, targetObject = self:nearestChopperTrailer()
     local dischargeNode = self.pipeController:getDischargeNode()
     self:debugSparse('%s %s', dischargeNode, self:isAnyWorkAreaProcessing())
     if not (targetObject == nil or trailer == nil) then 
-        -- if targetObject and targetObject.rootVehicle.getIsCpActive and targetObject.rootVehicle:getIsCpActive() then
-        --     local strategy = targetObject.rootVehicle:getCpDriveStrategy()
-        --     if strategy.isAChopperUnloadAIDriver
-        --         and self:getCurrentUnloader()
-        --         and self:getCurrentUnloader().vehicle == targetObject.rootVehicle 
-        --         and self:getCurrentUnloader():readyToReceive() then
-        --             self:debugSparse('Chopper has a CP Driven trailer now, continue')
-        --             return false
-        --     end
-        -- else
+        if targetObject and targetObject.rootVehicle.getIsCpActive and targetObject.rootVehicle:getIsCpActive() then
+            local strategy = targetObject.rootVehicle:getCpDriveStrategy()
+            if strategy.isAChopperUnloadAIDriver
+                and self:getCurrentUnloader()
+                and self:getCurrentUnloader().vehicle == targetObject.rootVehicle 
+                and self:getCurrentUnloader():readyToReceive() then
+                    self:debugSparse('Chopper has a CP Driven trailer now, continue')
+                    return false
+            end
+        else
             self:debugSparse('Chopper has a trailer now, continue')
             return false
-        -- end
+        end
     end
     self:debugSparse('Chopper waiting for trailer, discharge node %s, target object %s, trailer %s',
                 tostring(dischargeNode), tostring(targetObject), tostring(trailer))
     return true
 end
+
+
