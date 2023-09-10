@@ -17,23 +17,16 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-Drive strategy for driving a field work course
+Drive strategy for driving a Chopper field work course. Inherited from Combine Course
 
 ]]--
-
-
---[[
- 
- AI Drive Strategy for Choppers
-
-]]
 
 ---@class AIDriveStrategyChopperCourse : AIDriveStrategyCombineCourse
 
 AIDriveStrategyChopperCourse = {}
 local AIDriveStrategyChopperCourse_mt = Class(AIDriveStrategyChopperCourse, AIDriveStrategyCombineCourse)
 
--- The chopper may start outside of the field this setting permits expansion of the field boundary in this case
+-- The chopper may start outside of the field this setting permits expansion of the field boundary
 AIDriveStrategyChopperCourse.distanceOverFieldEdgeAllowed = 50
 
 -- Developer hack: to check the class of an object one should use the is_a() defined in CpObject.lua.
