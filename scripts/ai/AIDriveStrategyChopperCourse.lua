@@ -799,3 +799,14 @@ function AIDriveStrategyChopperCourse:isChopperWaitingForUnloader()
 end
 
 
+-- function AIDriveStrategyChopperCourse:startTurn(ix)
+--     self:debug('    Starting a chopper turn.')
+
+--     self.turnContext = TurnContext(self.vehicle, self.course, ix, ix + 1, self.turnNodes, self:getWorkWidth(),
+--             self.frontMarkerDistance, self.backMarkerDistance,
+--             self:getTurnEndSideOffset(), self:getTurnEndForwardOffset())
+
+
+--     AIDriveStrategyCombineCourse.superClass().startTurn(self, ix)
+
+-- end

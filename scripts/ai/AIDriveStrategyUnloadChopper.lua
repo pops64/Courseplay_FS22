@@ -437,14 +437,51 @@ function AIDriveStrategyUnloadChopper:unloadMovingCombine()
         self:setNewState(self.states.UNLOADING_STOPPED_COMBINE)
         return
     end
-    -- The chopper is turning or driving on a connecting track
-    if combineStrategy:isTurning() or combineStrategy:isChopperOnConnectingTrack() then
+    
+    if combineStrategy:isFinishingRow() and not self.finishingRowExtCourse then 
+        self.finishingRowExtCourse = Course.createStraightForwardCourse(self.vehicle, 25)
+        self:startCourse(self.finishingRowExtCourse, 1)
+        self:debug('The chopper is turning but not done with work')
+    -- The chopper isFinishingRow(A more reliable function to determine when no longer need a unload driver) or driving on a connecting track
+    elseif (self.finishingRowExtCourse and not combineStrategy:isFinishingRow()) or combineStrategy:isChopperOnConnectingTrack() then
         -- Create a backup course so we stay out of the way of Chopper doing unpredictable stuff
-        self:debug('The chopper is turning I better turn to')
-        local reverseCourse = Course.createStraightReverseCourse(self.vehicle, 100)
+        self:debug('The chopper is turning and done with the row I better turn to')
+        self.finishingRowExtCourse = nil
+        local reverseCourse = Course.createStraightReverseCourse(self.vehicle, 100) 
         self:startCourse(reverseCourse, 1)
         self:setNewState(self.states.WAITING_FOR_TURNING_CHOPPER)
     end
+end
+
+function AIDriveStrategyUnloadCombine:driveBesideCombine()
+    -- we don't want a moving target
+    --self:fixAutoAimNode()
+    local fwdDistance = self.proximityController:checkBlockingVehicleFront()
+    local targetNode = self:getTrailersTargetNode()
+    local _, offsetZ = self:getPipeOffset(self.combineToUnload)
+    -- TODO: this - 1 is a workaround the fact that we use a simple P controller instead of a PI 
+    -- Updated to use direction node as pipeOffset now that no longer reference rootNode
+    local _, _, dz = localToLocal(targetNode, self.combineToUnload:getAIDirectionNode(), 0, 0, -offsetZ)
+    -- use a factor to make sure we reach the pipe fast, but be more gentle while discharging
+    local factor = self.combineToUnload:getCpDriveStrategy():isDischarging() and 0.5 or 2
+    local speed = self.combineToUnload.lastSpeedReal * 3600 + MathUtil.clamp(-dz * factor, -10, 15)
+    
+    -- We are ignoring the chopper for collision detection but we still don't want to hit it
+    if fwdDistance < 1 then
+        speed = 0
+    end
+    -- slow down while the pipe is unfolding to avoid crashing onto it
+    if self.combineToUnload:getCpDriveStrategy():isPipeMoving() then
+        speed = (math.min(speed, self.combineToUnload:getLastSpeed() + 2))
+    end
+
+    self:renderText(0, 0.02, "%s: driveBesideCombine: dz = %.1f, speed = %.1f, factor = %.1f",
+            CpUtil.getName(self.vehicle), dz, speed, factor)
+
+    if CpUtil.isVehicleDebugActive(self.vehicle) and CpDebug:isChannelActive(self.debugChannel) then
+        DebugUtil.drawDebugNode(targetNode, 'target')
+    end
+    self:setMaxSpeed(math.max(0, speed))
 end
 
 function AIDriveStrategyUnloadChopper:driveBehindChopper()
@@ -452,18 +489,22 @@ function AIDriveStrategyUnloadChopper:driveBehindChopper()
     local distanceToChoppersBack, _, dz = self:getDistanceFromCombine()
 	local fwdDistance = self.proximityController:checkBlockingVehicleFront()
 
-	if dz < 0 then
-		-- I'm way too forward, stop here as I'm most likely beside the chopper, let it pass before
-		-- moving to the middle
-		self:setMaxSpeed(0)
-	end
+	
 
 	local errorSafety = self.safetyDistanceFromChopper - fwdDistance
 	local errorTarget = self.targetDistanceBehindChopper - dz
-	local error = math.abs(errorSafety) < math.abs(errorTarget) and errorSafety or errorTarget
+	local error = math.abs(errorSafety) < math.abs(errorTarget) and errorTarget or errorSafety --or errorTarget
 	local factor = self.combineToUnload:getCpDriveStrategy():isDischarging() and 0.5 or 2
     local deltaV = MathUtil.clamp(-error * factor, -10, 15)
 	local speed = (self.combineToUnload.lastSpeedReal * 3600) + deltaV
+
+    if dz < 0 or fwdDistance < .25 then
+		-- I'm way too forward, stop here as I'm most likely beside the chopper, let it pass before
+		-- moving to the middle
+		speed = 0
+	end
+    
+
 	self:renderText(0, 0.02, 'd = %.1f, dz = %.1f, speed = %.1f, errSafety = %.1f, errTarget = %.1f',
 	 		distanceToChoppersBack, dz, speed, errorSafety, errorTarget)
 
@@ -485,30 +526,30 @@ function AIDriveStrategyUnloadChopper:chopperIsTurning()
         return
     end
     
+    if not self.chopperIsMakingHeadlandTurn then
+        self.chopperIsMakingHeadlandTurn = self.combineToUnload:getCpDriveStrategy():isTurningOnHeadland()
+    end
+
     if self.combineToUnload:getCpDriveStrategy():isTurning() then
         -- Back up until the chopper is in front us so we don't interfere with its turn and make sure we stay behind it
         local _, _, dz = self:getDistanceFromCombine(self.combineToUnload)
-        if self.combineToUnload:getCpDriveStrategy():getChaseMode() then
-            if dz < -20 then
-                self:setMaxSpeed(self.settings.reverseSpeed:getValue())
-            elseif dz > -25 then
-                self:setMaxSpeed(0)
-            end
+        local safetyDistanceFromChopper = self.combineToUnload:getCpDriveStrategy():isTurningOnHeadland() and 5 or 0
+        
+        if dz < safetyDistanceFromChopper then
+            self:setMaxSpeed(self.settings.reverseSpeed:getValue())
         else
-            if dz < 0 then
-                self:setMaxSpeed(self.settings.reverseSpeed:getValue())
-            elseif dz > -3 then
-                self:setMaxSpeed(0)
-            end
+            self:setMaxSpeed(0)
         end
+
     elseif self.combineToUnload:getCpDriveStrategy():isChopperOnConnectingTrack() then
         -- Connecting track the chopper just drives forward don't move and wait for the chopper to stop before meeting back up with it
         self:setMaxSpeed(0)
-    elseif not self:isBehindAndAlignedToCombine() and not self:isInFrontAndAlignedToMovingCombine() then
+    elseif not self:isBehindAndAlignedToCombine() and not self:isInFrontAndAlignedToMovingCombine() and not self.chopperIsMakingHeadlandTurn then
         self:debug('Combine has finished turning we need to turn now')
         -- Turn around to meet back up with the combine
         self:pathfinderForUnloadChopperTurn()
     else
+        self.chopperIsMakingHeadlandTurn = false
         -- The chopper is finished turning but didn't turn far resume previous state
         self:startCourseFollowingCombine()
     end
@@ -550,11 +591,13 @@ function AIDriveStrategyUnloadChopper:requestToBackupForReversingCombine(blocked
     if not self.vehicle:getIsCpActive() then
         return
     end
+    
     self:debug('%s wants me to move out of way', blockedVehicle:getName())
     if self.state ~= self.states.BACKING_UP_FOR_REVERSING_COMBINE and
             self.state ~= self.states.MOVING_BACK and
             self.state ~= self.states.MOVING_AWAY_FROM_OTHER_VEHICLE and
-            self.state ~= self.states.MOVING_AWAY_WITH_TRAILER_FULL
+            self.state ~= self.states.MOVING_AWAY_WITH_TRAILER_FULL and
+            self.state ~= self.states.WAITING_FOR_TURNING_CHOPPER
     then
         -- reverse back a bit, this usually solves the problem
         -- TODO: there may be better strategies depending on the situation
