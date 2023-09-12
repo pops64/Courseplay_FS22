@@ -368,7 +368,7 @@ function AIDriveStrategyUnloadChopper:startMovingAwayFromChopper(newState, combi
         if path and not hasFruit and isField then
             self:debug('startMovingAwayFromChopper: I found a Analytic Path and I am now going to drive it')
             self.driveAwayFromChopperCourse = Course.createFromAnalyticPath(self.vehicle, path, true)
-            self.driveAwayFromChopperCourse:extend(AIDriveStrategyUnloadCombine.driveToCombineCourseExtensionLength, dx, dz)
+            self.driveAwayFromChopperCourse:extend(AIDriveStrategyUnloadCombine.driveToCombineCourseExtensionLength)
         else
             -- We had fruit or couldn't find a path lets just drive forward enough to give pathfinder time before we block the unloader
             -- TODO Optimizations pathfinder needs be called while driving this course on rows that are very narrow pathfinder takes a long time
