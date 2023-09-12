@@ -182,7 +182,7 @@ function FillLevelManager.canLoadTrailer(trailer, fillType)
     if fillType then
         local fillUnits = trailer:getFillUnits()
         for i = 1, #fillUnits do
-            local supportedFillTypes = trailer:getFillUnitSupportedFillTypes(i)
+            local supportedFillTypes = trailer:getFillUnitSupportedFillTypes(i) or FillType.UNKNOWN -- Added for choppers 
             local freeCapacity =  trailer:getFillUnitFreeCapacity(i)
             if supportedFillTypes[fillType] and freeCapacity > 0 then
                 return true, freeCapacity, i

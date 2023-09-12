@@ -71,13 +71,13 @@ function ChopperController:updateNearestObjectInTriggers(superFunc, ...)
 	local dischargeNode = self:getDischargeNodeByIndex(self:getPipeDischargeNodeIndex())
     local chopper = self.getRootVehicle and self:getRootVehicle()
 
-    if not chopper then
+    if not chopper or not chopper.getIsCpActive or not chopper:getIsCpActive()then
         return superFunc(self, ...)
     end
     -- We only want to use our modified version of this function when CP Chopper is driving
-    if  not chopper.getIsCpActive and not chopper:getIsCpActive() then
-        return superFunc(self, ...)
-    end
+    -- if  not chopper:getIsCpActive() then
+    --     return superFunc(self, ...)
+    -- end
         
     local chopperDriver = chopper:getCpDriveStrategy() 
 
@@ -92,7 +92,7 @@ function ChopperController:updateNearestObjectInTriggers(superFunc, ...)
 		for object, _ in pairs(spec.objectsInTriggers) do
 			local outputFillType = self:getFillUnitLastValidFillType(dischargeNode.fillUnitIndex)
             local unloadVehicle = object.getRootVehicle and object:getRootVehicle()
-
+            
 			for fillUnitIndex, _ in ipairs(object.spec_fillUnit.fillUnits) do
 				local allowedToFillByPipe = object:getFillUnitSupportsToolType(fillUnitIndex, ToolType.DISCHARGEABLE)
 				local supportsFillType = object:getFillUnitSupportsFillType(fillUnitIndex, outputFillType) or outputFillType == FillType.UNKNOWN
