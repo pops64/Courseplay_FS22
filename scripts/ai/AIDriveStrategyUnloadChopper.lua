@@ -424,6 +424,11 @@ function AIDriveStrategyUnloadChopper:unloadMovingCombine()
         return
     end
 
+    if combineStrategy:getChaseMode() and not self.followCourse:isOnOutermostHeadland(self.followCourse:getCurrentWaypointIx()+1) then
+        combineStrategy:checkPipeOffsetXForFruit()
+        self:startCourseFollowingCombine()
+    end
+
     if combineStrategy:getChaseMode() then
         -- Since we are going to be right behind the chopper. We need a alter the driveBeside code so call this altered function of driveBeside
         self:driveBehindChopper()
@@ -493,7 +498,7 @@ function AIDriveStrategyUnloadChopper:driveBehindChopper()
 
 	local errorSafety = self.safetyDistanceFromChopper - fwdDistance
 	local errorTarget = self.targetDistanceBehindChopper - dz
-	local error = math.abs(errorSafety) < math.abs(errorTarget) and errorTarget or errorSafety --or errorTarget
+	local error = math.abs(errorSafety) < math.abs(errorTarget) and errorSafety or errorTarget
 	local factor = self.combineToUnload:getCpDriveStrategy():isDischarging() and 0.5 or 2
     local deltaV = MathUtil.clamp(-error * factor, -10, 15)
 	local speed = (self.combineToUnload.lastSpeedReal * 3600) + deltaV

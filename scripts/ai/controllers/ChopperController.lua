@@ -110,9 +110,11 @@ function ChopperController:updateNearestObjectInTriggers(superFunc, ...)
                         -- We have a target check to see if it is a CP driver, if not default to going to closest in range. Original functionality
                         if unloadVehicle and unloadVehicle.getIsCpActive and unloadVehicle:getIsCpActive() then
                             local strategy = unloadVehicle:getCpDriveStrategy()
-                            if  strategy.isAChopperUnloadAIDriver
-                                    and chopperDriver:getCurrentUnloader()
-                                    and chopperDriver:getCurrentUnloader().vehicle == unloadVehicle then
+                            if  strategy and 
+                                    strategy.isAChopperUnloadAIDriver and
+                                    chopperDriver:getCurrentUnloader() and
+                                    chopperDriver:getCurrentUnloader().vehicle == unloadVehicle and
+                                    strategy:readyToReceive() then
                                 spec.nearestObjectInTriggers.objectId = NetworkUtil.getObjectId(object)
                                 spec.nearestObjectInTriggers.fillUnitIndex = fillUnitIndex
                                 break
