@@ -855,7 +855,7 @@ function AIDriveStrategyUnloadChopper:isBehindAndAlignedToCombine(debugEnabled)
         return false
     end
     local d = MathUtil.vector2Length(dx, dz)
-    if d > (20) then
+    if d > 30 then
         self:debugIf(debugEnabled, 'isBehindAndAlignedToCombine: too far from combine (%.1f > 30)', d)
         return false
     end
@@ -972,7 +972,8 @@ function AIDriveStrategyUnloadChopper:onBlockingVehicle(blockingVehicle, isBack)
                 course = self:createMoveAwayCourse(blockingVehicle)
             end
         elseif (AIDriveStrategyUnloadCombine.isActiveCpCombineUnloader(blockingVehicle) or
-                AIDriveStrategyUnloadCombine.isActiveCpSiloLoader(blockingVehicle)) and
+                AIDriveStrategyUnloadCombine.isActiveCpSiloLoader(blockingVehicle) or
+                AIDriveStrategyUnloadChopper.isActiveCpChopperUnloader(blockingVehicle)) and
                 blockingVehicle:getCpDriveStrategy():isIdle() then
             self:debug('%s is an idle CP combine unloader, request it to move.', CpUtil.getName(blockingVehicle))
             blockingVehicle:getCpDriveStrategy():requestToMoveForward(self.vehicle)
@@ -980,6 +981,8 @@ function AIDriveStrategyUnloadChopper:onBlockingVehicle(blockingVehicle, isBack)
             return
         elseif self.state == self.states.UNLOADING_MOVING_COMBINE then
             -- We don't want to do anything if we are unloading a combine the other vehicle needs to get out of our way
+            self.debug('we are unloading a chopper %s please get out of our way', CpUtil.getName(blockingVehicle))
+            blockingVehicle:getCpDriveStrategy():requestToMoveOutOfWay()
             return
         else
             -- straight back or forward

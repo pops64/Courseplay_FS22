@@ -1817,6 +1817,7 @@ function AIDriveStrategyUnloadCombine:moveOutOfWay()
     end
 end
 
+-- What does this do it? Not called by anything
 function AIDriveStrategyUnloadCombine:findOtherUnloaderAroundCombine(combine, combineOffset)
     if not combine then
         return nil
