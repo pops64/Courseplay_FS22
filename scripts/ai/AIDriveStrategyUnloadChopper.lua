@@ -911,3 +911,87 @@ function AIDriveStrategyUnloadChopper:isOkToStartUnloadingCombine()
         return false
     end
 end
+
+------------------------------------------------------------------------------------------------------------------------
+-- Is there another vehicle blocking us?
+------------------------------------------------------------------------------------------------------------------------
+--- If the other vehicle is a combine driven by CP, we will try get out of its way. Otherwise, if we are not being
+--- held already, we tell the other vehicle to hold, and will attempt to get out of its way.
+--- This is to make sure that only one of the two vehicles yields to the other one
+--- If the other vehicle is an unloader in the idle state, we'll ask it to move as we are busy and it has
+--- nothing to do anyway. Such a situation can arise when the first unloader just finished overloading to a waiting
+--- trailer and pulled ahead a bit, waiting for a combine to call, when a second unloader arrives to the trailer
+--- to overload, but can't get close enough because it is blocked by the first, idle one.
+-- TODO This needs a major overhaul in logic this does not do very good traffic control management when there are two unloaders servicing the same vehicle 
+function AIDriveStrategyUnloadChopper:onBlockingVehicle(blockingVehicle, isBack)
+    if not self.vehicle:getIsCpActive() or isBack then
+        self:debug('%s has been blocking us for a while, ignoring as either not active or in the back', CpUtil.getName(blockingVehicle))
+        return
+    end
+    if self.state ~= self.states.MOVING_AWAY_FROM_OTHER_VEHICLE and
+            self.state ~= self.states.BACKING_UP_FOR_REVERSING_COMBINE and
+            not self:isBeingHeld() then
+        self:debug('%s has been blocking us for a while, move a bit', CpUtil.getName(blockingVehicle))
+        local course
+        if AIDriveStrategyCombineCourse.isActiveCpCombine(blockingVehicle) then
+            -- except we are blocking our buddy, so set up a course parallel to the combine's direction,
+            -- with an offset from the combine that makes sure we are clear. Use the trailer's root node (and not
+            -- the tractor's) as when we reversing, it is easier when the trailer remains on the same side of the combine
+            local trailer = AIUtil.getImplementOrVehicleWithSpecialization(self.vehicle, Trailer)
+            local dx, _, _ = localToLocal(trailer.rootNode, blockingVehicle:getAIDirectionNode(), 0, 0, 0)
+            local xOffset = self.vehicle.size.width / 2 + blockingVehicle:getCpDriveStrategy():getWorkWidth() / 2 + 2
+            xOffset = dx > 0 and xOffset or -xOffset
+            self:setNewState(self.states.MOVING_AWAY_FROM_OTHER_VEHICLE)
+            self.state.properties.vehicle = blockingVehicle
+            self.state.properties.dx = nil
+            if CpMathUtil.isOppositeDirection(self.vehicle:getAIDirectionNode(), blockingVehicle:getAIDirectionNode(), 30) then
+                -- we are head on with the combine, so reverse
+                -- we will generate a straight reverse course relative to the blocking vehicle, but we want the course start
+                -- approximately where our back marker is, as we will be reversing
+                local _, _, from = localToLocal(Markers.getBackMarkerNode(self.vehicle), blockingVehicle:getAIDirectionNode(), 0, 0, 0)
+                self:debug('%s is a CP combine, head on, so generate a course from %.1f m, xOffset %.1f',
+                        CpUtil.getName(blockingVehicle), from, xOffset)
+                course = Course.createFromNode(self.vehicle, blockingVehicle:getAIDirectionNode(), xOffset, from,
+                        from + self.maxDistanceWhenMovingOutOfWay, 5, true)
+                -- we will stop reversing when we are far enough from the combine's path
+                self.state.properties.dx = xOffset
+            elseif CpMathUtil.isSameDirection(self.vehicle:getAIDirectionNode(), blockingVehicle:getAIDirectionNode(), 30) then
+                -- we are in front of the combine, same direction
+                -- we will generate a straight forward course relative to the blocking vehicle, but we want the course start
+                -- approximately where our front marker is
+                local _, _, from = localToLocal(Markers.getFrontMarkerNode(self.vehicle), blockingVehicle:getAIDirectionNode(), 0, 0, 0)
+                self:debug('%s is a CP combine, same direction, generate a course from %.1f with xOffset %.1f',
+                        CpUtil.getName(blockingVehicle), from, xOffset)
+                course = Course.createFromNode(self.vehicle, blockingVehicle:getAIDirectionNode(), xOffset, from,
+                        from + self.maxDistanceWhenMovingOutOfWay, 5, false)
+                -- drive the entire course, making sure the trailer is also out of way
+                self.state.properties.dx = xOffset
+            else
+                self:debug('%s is a CP combine, not head on, not same direction', CpUtil.getName(blockingVehicle))
+                self.state.properties.dx = nil
+                course = self:createMoveAwayCourse(blockingVehicle)
+            end
+        elseif (AIDriveStrategyUnloadCombine.isActiveCpCombineUnloader(blockingVehicle) or
+                AIDriveStrategyUnloadCombine.isActiveCpSiloLoader(blockingVehicle)) and
+                blockingVehicle:getCpDriveStrategy():isIdle() then
+            self:debug('%s is an idle CP combine unloader, request it to move.', CpUtil.getName(blockingVehicle))
+            blockingVehicle:getCpDriveStrategy():requestToMoveForward(self.vehicle)
+            -- no state change, wait for the other unloader to move
+            return
+        elseif self.state == self.states.UNLOADING_MOVING_COMBINE then
+            -- We don't want to do anything if we are unloading a combine the other vehicle needs to get out of our way
+            return
+        else
+            -- straight back or forward
+            course = self:createMoveAwayCourse(blockingVehicle)
+            self:setNewState(self.states.MOVING_AWAY_FROM_OTHER_VEHICLE)
+            self.state.properties.vehicle = blockingVehicle
+            self.state.properties.dx = nil
+            if blockingVehicle.cpHold then
+                -- ask the other vehicle for hold until we drive around
+                blockingVehicle:cpHold(20000)
+            end
+        end
+        self:startCourse(course, 1)
+    end
+end
