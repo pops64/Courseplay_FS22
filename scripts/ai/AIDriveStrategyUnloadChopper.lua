@@ -424,7 +424,7 @@ function AIDriveStrategyUnloadChopper:unloadMovingCombine()
         return
     end
 
-    if combineStrategy:getChaseMode() and not self.followCourse:isOnOutermostHeadland(self.followCourse:getCurrentWaypointIx()+1) then
+    if combineStrategy:getChaseMode() and not self.followCourse:isOnOutermostHeadland(self.followCourse:getCurrentWaypointIx() + 1) and self.followCourse:isOnHeadland() then
         combineStrategy:checkPipeOffsetXForFruit()
         self:startCourseFollowingCombine()
     end
