@@ -287,7 +287,7 @@ function AIDriveStrategyChopperCourse:checkPipeOffsetXForFruit(ix)
             lRow, rowStartIx = self.course:getRowLength(fruitCheckWaypoint+2)
             self:debug('checkPipeOffsetXForFruit: checked again lRow = %d rowStartIx = %d', lRow or 'N/A', rowStartIx or 'N/A')
         end
-        if lRow > 0 and rowStartIx then -- Yeah! We got a row length lets use the middle of the row to determine where the fruit is
+        if lRow and lRow > 0 and rowStartIx then -- Yeah! We got a row length lets use the middle of the row to determine where the fruit is
             fruitCheckWaypoint = self.course:getNextWaypointIxWithinDistance(rowStartIx, lRow / 2)
             self:debug('Fruitwaypoint was set to the middle of the row %d', fruitCheckWaypoint)
         else -- We still didn't get a row length just set it 10 ahead and hope for the best
