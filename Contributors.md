@@ -13,7 +13,7 @@
 * French: [Lactic68](https://github.com/Lactic68)
 * German: [Jan2903](https://github.com/Jan2903), [RealNeo80](https://github.com/RealNeo80)
 * Hungarian: [RedMonster-HUN](https://github.com/RedMonster-HUN)
-* Italian: [Roby1164](https://github.com/Roby1164)
+* Italian: [Roby1164](https://github.com/Roby1164), [pops64](https://github.com/pops64)
 * Polish: [KITT3000](https://github.com/KITT3000)
 * Portuguese: [Admilson](https://github.com/Admilson), [neekavis](https://github.com/neekavis)
 * Russian: [Gonimy-Vetrom](https://github.com/Gonimy-Vetrom), [Kurbackiy](https://github.com/Kurbackiy)
