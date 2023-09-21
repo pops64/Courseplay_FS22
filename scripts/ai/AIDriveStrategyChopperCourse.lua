@@ -281,11 +281,11 @@ function AIDriveStrategyChopperCourse:checkPipeOffsetXForFruit(ix)
     if not self.course:isOnHeadland(fruitCheckWaypoint) then
         
         local lRow, rowStartIx = self.course:getRowLength(fruitCheckWaypoint)
-        self:debug('checkPipeOffsetXForFruit: lRow = %d rowStartIx = %d', lRow or 'N/A', rowStartIx or 'N/A')
+        self:debug('checkPipeOffsetXForFruit: lRow = %s rowStartIx = %s', lRow and string.format('%d', lRow) or 'N/A', rowStartIx and string.format('%d', rowStartIx) or 'N/A')
         -- We didn't get a row length back try again a little further ahead
         if lRow == 0 then
             lRow, rowStartIx = self.course:getRowLength(fruitCheckWaypoint+2)
-            self:debug('checkPipeOffsetXForFruit: checked again lRow = %d rowStartIx = %d', lRow or 'N/A', rowStartIx or 'N/A')
+            self:debug('checkPipeOffsetXForFruit: checked again lRow = %s rowStartIx = %s', lRow and string.format('%d', lRow) or 'N/A', rowStartIx and string.format('%d', rowStartIx) or 'N/A')
         end
         if lRow and lRow > 0 and rowStartIx then -- Yeah! We got a row length lets use the middle of the row to determine where the fruit is
             fruitCheckWaypoint = self.course:getNextWaypointIxWithinDistance(rowStartIx, lRow / 2)
