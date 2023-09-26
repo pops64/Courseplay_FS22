@@ -58,7 +58,6 @@ AIDriveStrategyShovelSiloLoader.myStates = {
     REVERSING_AWAY_FROM_UNLOAD = {shovelPosition = ShovelController.POSITIONS.PRE_UNLOADING, shovelMovingSpeed = 0},
 }
 
-AIDriveStrategyShovelSiloLoader.maxValidTrailerDistanceToSiloFront = 30
 AIDriveStrategyShovelSiloLoader.searchForTrailerDelaySec = 10 
 AIDriveStrategyShovelSiloLoader.distShovelTrailerPreUnload = 7
 AIDriveStrategyShovelSiloLoader.distShovelUnloadStationPreUnload = 8
@@ -122,6 +121,7 @@ function AIDriveStrategyShovelSiloLoader:startWithoutCourse(jobParameters)
         --- to place the unload position node slightly in front.
         local x, y, z = getWorldTranslation(self.unloadTrigger:getFillUnitExactFillRootNode(1))
         setTranslation(self.unloadPositionNode, x, y, z)
+        ---@type CpAIParameterPositionAngle
         local position = jobParameters.unloadPosition
         local dirX, dirZ = position:getDirection()
         setDirection(self.unloadPositionNode, dirX, 0, dirZ, 0, 0, 1)
@@ -130,6 +130,11 @@ function AIDriveStrategyShovelSiloLoader:startWithoutCourse(jobParameters)
         setTranslation(self.unloadPositionNode, dx, dy, dz)
     else 
         self:debug("Starting shovel silo to unload into trailer.")
+        ---@type CpAIParameterPositionAngle
+        local position = jobParameters.unloadPosition
+        local _
+        _, self.trailerSearchArea = CpAIJobSiloLoader.getTrailerUnloadArea(position)
+
     end
     if self.bunkerSilo ~= nil then 
         self:debug("Bunker silo was found.")
@@ -333,10 +338,6 @@ end
 
 function AIDriveStrategyShovelSiloLoader:update(dt)
     if CpDebug:isChannelActive(CpDebug.DBG_SILO, self.vehicle) then
-        if self.siloFrontNode and self.state == self.states.WAITING_FOR_TRAILER then
-            DebugUtil.drawDebugCircleAtNode(self.siloFrontNode, self.maxValidTrailerDistanceToSiloFront, 
-                math.ceil(self.maxValidTrailerDistanceToSiloFront), nil, false, {0, 3, 0})
-        end
         if self.course:isTemporary() then
             self.course:draw()
         elseif self.ppc:getCourse():isTemporary() then
@@ -400,6 +401,22 @@ function AIDriveStrategyShovelSiloLoader:setNewState(newState)
     self.state = newState
 end
 
+--- Checks if a valid target was found, which means either a trailer or a manure spreader.
+---@param trailer table
+---@return boolean
+function AIDriveStrategyShovelSiloLoader:hasTrailerValidSpecializations(trailer)
+    if SpecializationUtil.hasSpecialization(Trailer, trailer.specializations) then 
+        --- All normal trailers
+        return true
+    end
+    if SpecializationUtil.hasSpecialization(Sprayer, trailer.specializations) 
+        and trailer.spec_sprayer.isManureSpreader then 
+        --- Manure spreader
+        return true
+    end
+    return false
+end
+
 --- Is the trailer valid or not?
 ---@param trailer table
 ---@param trailerToIgnore table|nil
@@ -410,22 +427,23 @@ function AIDriveStrategyShovelSiloLoader:isValidTrailer(trailer, trailerToIgnore
         self:debug("%s attached to: %s => %s", CpUtil.getName(trailer), 
                 trailer.rootVehicle and CpUtil.getName(trailer.rootVehicle) or "no root vehicle", string.format(...))
     end
-    if not SpecializationUtil.hasSpecialization(Trailer, trailer.specializations) then 
+    if not self:hasTrailerValidSpecializations(trailer) then 
+        debug("has not valid specializations setup")
         return false
     end
     if trailer.rootVehicle and not AIUtil.isStopped(trailer.rootVehicle) then 
-        self:debug("is not stopped!", CpUtil.getName(trailer))
+        debug("is not stopped!")
         return false
     end
     if trailerToIgnore and table.hasElement(trailerToIgnore, trailer) then 
-        debug("will be ignored!", CpUtil.getName(trailer))
+        debug("will be ignored!")
         return false
     end       
     local canLoad, fillUnitIndex, fillType, exactFillRootNode = 
         ImplementUtil.getCanLoadTo(trailer, self.shovelImplement, 
         nil, debug) 
     if not canLoad or exactFillRootNode == nil then 
-        debug("can't be used!", CpUtil.getName(trailer))
+        debug("can't be used!")
         return false
     end
     return true, {  fillUnitIndex = fillUnitIndex,
@@ -442,12 +460,15 @@ function AIDriveStrategyShovelSiloLoader:getClosestTrailerAndDistance(trailerToI
     local closestDistance = math.huge
     local closestTrailerData = nil
     for i, vehicle in pairs(g_currentMission.vehicles) do 
-        local dist = calcDistanceFrom(vehicle.rootNode, self.siloFrontNode)
-        if dist < closestDistance then 
-            local valid, trailerData = self:isValidTrailer(vehicle, trailerToIgnore) 
-            if valid then
-                closestDistance = dist
-                closestTrailerData = trailerData
+        local x, _, z = getWorldTranslation(vehicle.rootNode)
+        if CpMathUtil.isPointInPolygon(self.trailerSearchArea, x, z ) then
+            local dist = calcDistanceFrom(vehicle.rootNode, self.siloFrontNode)
+            if dist < closestDistance then 
+                local valid, trailerData = self:isValidTrailer(vehicle, trailerToIgnore) 
+                if valid then
+                    closestDistance = dist
+                    closestTrailerData = trailerData
+                end
             end
         end
     end
@@ -464,13 +485,6 @@ function AIDriveStrategyShovelSiloLoader:searchForTrailerToUnloadInto()
         return
     end
     local trailer = trailerData.trailer
-    if dist > self.maxValidTrailerDistanceToSiloFront then
-        self:debug("Closest Trailer %s attached to %s with the distance %.2fm/%.2fm found is to far away!", 
-            CpUtil.getName(trailer), trailer.rootVehicle and CpUtil.getName(trailer.rootVehicle) or "no root vehicle",
-            dist, self.maxValidTrailerDistanceToSiloFront)
-        self:setInfoText(InfoTextManager.WAITING_FOR_UNLOADER)
-        return
-    end
     self:clearInfoText(InfoTextManager.WAITING_FOR_UNLOADER)
     --- Sets the unload position node in front of the closest side of the trailer.
     self:debug("Found a valid trailer %s within distance %.2f", CpUtil.getName(trailer), dist)
