@@ -164,8 +164,9 @@ end
 function AIDriveStrategyCombineCourse:initializeImplementControllers(vehicle)
     AIDriveStrategyCombineCourse:superClass().initializeImplementControllers(self, vehicle)
     local _
-    _, self.pipeController = self:addImplementController(vehicle, PipeController, Pipe, {}, nil)
-    self.combine, self.combineController = self:addImplementController(vehicle, CombineController, Combine, {}, nil)
+    _, self.pipeController = self:addImplementController(vehicle, 
+        PipeController, Pipe, {}, nil)
+    self.combineController, self.combine = self:getFirstRegisteredImplementControllerByClass(CombineController)
 end
 
 function AIDriveStrategyCombineCourse:getProximitySensorWidth()
@@ -384,8 +385,6 @@ function AIDriveStrategyCombineCourse:driveUnloadOnField()
         if self:isCloseToCourseEnd(25) then
             -- slow down towards the end of the course, near the trailer
             self:setMaxSpeed(0.5 * self.settings.fieldSpeed:getValue())
-            -- disable stock collision detection as we have to drive very close to the tractor/trailer
-            self:disableCollisionDetection()
             -- we'll be very close to the tractor/trailer, don't stop too soon
             self.proximityController:setTemporaryStopThreshold(self.proximityStopThresholdSelfUnload, 3000)
         else
@@ -426,7 +425,6 @@ function AIDriveStrategyCombineCourse:driveUnloadOnField()
             self.proximityController:setTemporaryStopThreshold(self.proximityStopThresholdSelfUnload, 3000)
         else
             self:setMaxSpeed(self.settings.fieldSpeed:getValue())
-            self:enableCollisionDetection()
         end
         -- apply the work starter's speed limit (when approaching the work start)
         local _, _, _, maxSpeed = self.workStarter:getDriveData()
@@ -519,7 +517,6 @@ function AIDriveStrategyCombineCourse:onLastWaypointPassed()
         if self.settings.selfUnload:getValue() and
                 self:startSelfUnload(self.states.DRIVING_TO_SELF_UNLOAD_AFTER_FIELDWORK_ENDED) then
             self:debug('Start self unload after fieldwork ended')
-            self:disableCollisionDetection()
         else
             -- let AutoDrive know we are done and can unload
             self:debug('Fieldwork done, fill level is %.1f, now waiting to be unloaded.', fillLevel)
@@ -603,8 +600,7 @@ end
 function AIDriveStrategyCombineCourse:startWaitingForUnloadBeforeNextRow()
     self:debug('Waiting for unload before starting the next row')
     self.waitingForUnloaderAtEndOfRow:set(true, 30000)
-    self.state = self.states.UNLOADING_ON_FIELD
-    self.unloadState = self.states.WAITING_FOR_UNLOAD_BEFORE_STARTING_NEXT_ROW
+    self:stopForUnload(self.states.WAITING_FOR_UNLOAD_BEFORE_STARTING_NEXT_ROW, true)
 end
 
 --- The unloader may call this repeatedly to confirm that the rendezvous still stands, making sure the
@@ -1414,11 +1410,25 @@ function AIDriveStrategyCombineCourse:handlePipe(dt)
 end
 
 function AIDriveStrategyCombineCourse:handleCombinePipe(dt)
-
-    if self.pipeController:isFillableTrailerUnderPipe() or self:isAutoDriveWaitingForPipe() then
+    if self:isAGoodTrailerInRange() or self:isAutoDriveWaitingForPipe() then
         self.pipeController:openPipe()
     else
         self.pipeController:closePipe(true)
+    end
+end
+
+function AIDriveStrategyCombineCourse:isAGoodTrailerInRange()
+    local _, trailer = self.pipeController:isFillableTrailerUnderPipe()
+    local unloaderVehicle = trailer and trailer:getRootVehicle()
+
+    if unloaderVehicle == nil then
+        return false
+    end
+
+    if AIDriveStrategyUnloadCombine.isActiveCpCombineUnloader(unloaderVehicle) then
+        return unloaderVehicle:getCpDriveStrategy():getCombineToUnload() == self.vehicle
+    else
+        return true
     end
 end
 
@@ -1961,23 +1971,6 @@ function AIDriveStrategyCombineCourse:onDraw()
         end
     end
 
-end
-
--- For combines, we use the collision trigger of the header to cover the whole vehicle width
-function AIDriveStrategyCombineCourse:createTrafficConflictDetector()
-    -- (not everything running as combine has a cutter, for instance the Krone Premos)
-    if self.combine.attachedCutters then
-        for cutter, _ in pairs(self.combine.attachedCutters) do
-            -- attachedCutters is indexed by the cutter, not an integer
-            self.trafficConflictDetector = TrafficConflictDetector(self.vehicle, self.course, cutter)
-            -- for now, combines ignore traffic conflicts (but still provide the detector boxes for other vehicles)
-            self.trafficConflictDetector:disableSpeedControl()
-            return
-        end
-    end
-    self.trafficConflictDetector = TrafficConflictDetector(self.vehicle, self.course)
-    -- for now, combines ignore traffic conflicts (but still provide the detector boxes for other vehicles)
-    self.trafficConflictDetector:disableSpeedControl()
 end
 
 --- Don't slow down when discharging. This is a workaround for unloaders getting into the proximity
