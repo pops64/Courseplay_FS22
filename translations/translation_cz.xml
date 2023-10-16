@@ -120,6 +120,36 @@
     <text name="CP_ai_messageErrorCutterNotSupported" text="Pracovník AI %s neočekávaně zastavil práci - připojení lišty není možné!"/>
     <text name="CP_ai_messageErrorAutomaticCutterAttachNotActive" text="Pracovník AI %s přestal neočekávaně pracovat - automatické připojení lišty deaktivováno!"/>
     <!---->
+    <!--AI fieldwork task descriptions-->
+    <!---->
+    <text name="CP_ai_taskDescriptionAttachHeader" text="Zvednout lištu"/>
+    <!---->
+    <!--AI bale finder task descriptions-->
+    <!---->
+    <text name="CP_ai_taskDescriptionCollectsBales" text="Sbírání balíků na poli"/>
+    <text name="CP_ai_taskDescriptionWrapsBales" text="Ovíjení balíků na poli"/>
+    <!---->
+    <!--AI combine unloader task descriptions-->
+    <!---->
+    <text name="CP_ai_taskDescriptionUnloadCombine" text="Vykládání kombajnu"/>
+    <text name="CP_ai_taskDescriptionWaitsForTargetCombine" text="Čeká na kombajn"/>
+    <text name="CP_ai_taskDescriptionUnloadSiloLoader" text="Vykládání nakladače"/>
+    <text name="CP_ai_taskDescriptionWaitsForTargetSiloLoader" text="Čeká na nakladač"/>
+    <text name="CP_ai_taskDescriptionUnloadingToHeap" text="Vykládání na hromadu"/>
+    <text name="CP_ai_taskDescriptionUnloadingToTrailer" text="Vykládání do vlečky"/>
+    <text name="CP_ai_taskDescriptionUnloadingWithGiants" text="Vykládání s Giants pracovníkem"/>
+    <!---->
+    <!--AI silo worker task descriptions-->
+    <!---->
+    <text name="CP_ai_taskDescriptionWorksInTheSilo" text="Práce v silážní jámě"/>
+    <text name="CP_ai_taskDescriptionWaitsForUnloaders" text="Čeká na vykladač"/>
+    <!---->
+    <!--AI silo loader task descriptions-->
+    <!---->
+    <text name="CP_ai_taskDescriptionUnloadingToTrailer" text="Vykládání do vlečky"/>
+    <text name="CP_ai_taskDescriptionWaitsForTrailer" text="Čeká na vlečku"/>
+    <text name="CP_ai_taskDescriptionUnloadingToTrigger" text="Vykládání do trigeru"/>
+    <!---->
     <!--Vehicle settings-->
     <!---->
     <text name="CP_vehicle_setting_title" text="Nastavení pro vozidlo (%s)"/>
@@ -420,8 +450,8 @@ Trasa se automaticky uloží při zavření editoru a přepíše vybranou trasu.
     <text name="CP_infoTexts_drivingToSelfUnload" text="Jede k odvozci"/>
     <text name="CP_infoTexts_outOfMoney" text="Došly peníze"/>
     <text name="CP_infoTexts_waitForRainToFinish" text="Čeká na konec deště"/>
-    <text name="CP_infoTexts_waitForSnowToClear" text="Waits for snow to disappear"/>
-    <text name="CP_infoTexts_waitForUnloader" text="Čeká na vykladač"/>
+    <text name="CP_infoTexts_waitForSnowToClear" text="Čeká až roztaje sníh"/>
+    <text name="CP_infoTexts_waitForUnloader" text="Čeká na odvozce"/>
     <text name="CP_infoTexts_errorStopped" text="Opustil trasu, zastavil"/>
     <text name="CP_infoTexts_wrongBaleWrapType" text="Špatný typ balíku"/>
     <text name="CP_infoTexts_errorNoPathFound" text="Nenalezena trasa"/>

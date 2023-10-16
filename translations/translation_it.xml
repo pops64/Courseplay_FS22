@@ -120,6 +120,36 @@
     <text name="CP_ai_messageErrorCutterNotSupported" text="L'operatore IA %s ha smesso di funzionare in modo imprevisto: il collegamento in testa è impossibile!"/>
     <text name="CP_ai_messageErrorAutomaticCutterAttachNotActive" text="L'operatore IA %s ha interrotto il lavoro in modo imprevisto: attacco taglierina automatico disattivato!"/>
     <!---->
+    <!--AI fieldwork task descriptions-->
+    <!---->
+    <text name="CP_ai_taskDescriptionAttachHeader" text="Solleva la testata"/>
+    <!---->
+    <!--AI bale finder task descriptions-->
+    <!---->
+    <text name="CP_ai_taskDescriptionCollectsBales" text="Raccoglie le balle sul campo"/>
+    <text name="CP_ai_taskDescriptionWrapsBales" text="Avvolge le balle sul campo"/>
+    <!---->
+    <!--AI combine unloader task descriptions-->
+    <!---->
+    <text name="CP_ai_taskDescriptionUnloadCombine" text="Scarica la trebbia"/>
+    <text name="CP_ai_taskDescriptionWaitsForTargetCombine" text="Aspetta la trebbia"/>
+    <text name="CP_ai_taskDescriptionUnloadSiloLoader" text="Scarica il caricatore"/>
+    <text name="CP_ai_taskDescriptionWaitsForTargetSiloLoader" text="Aspetta il caricatore"/>
+    <text name="CP_ai_taskDescriptionUnloadingToHeap" text="Scarica in un mucchio"/>
+    <text name="CP_ai_taskDescriptionUnloadingToTrailer" text="Scarica nel rimorchio"/>
+    <text name="CP_ai_taskDescriptionUnloadingWithGiants" text="Scarica con lavoratori Giants"/>
+    <!---->
+    <!--AI silo worker task descriptions-->
+    <!---->
+    <text name="CP_ai_taskDescriptionWorksInTheSilo" text="Lavora nel silos"/>
+    <text name="CP_ai_taskDescriptionWaitsForUnloaders" text="Aspetta lo scaricatore"/>
+    <!---->
+    <!--AI silo loader task descriptions-->
+    <!---->
+    <text name="CP_ai_taskDescriptionUnloadingToTrailer" text="Scarica nel rimorchio"/>
+    <text name="CP_ai_taskDescriptionWaitsForTrailer" text="Aspetta un rimorchio"/>
+    <text name="CP_ai_taskDescriptionUnloadingToTrigger" text="Scarica su un punto di scarico"/>
+    <!---->
     <!--Vehicle settings-->
     <!---->
     <text name="CP_vehicle_setting_title" text="Impostazioni del veicolo (%s)"/>
