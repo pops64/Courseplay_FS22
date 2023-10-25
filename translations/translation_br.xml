@@ -95,9 +95,9 @@
     <text name="CP_siloLoaderJobParameters_subTitle_loadPosition" text="Posição para carregar"/>
     <text name="CP_siloLoaderJobParameters_loadPosition_title" text="Posição para carregar"/>
     <text name="CP_siloLoader_fillLevelProgress" text="Progressâo: "/>
-    <text name="CP_siloLoaderJobParameters_subTitle_unloading" text="Unloading at:"/>
-    <text name="CP_siloLoaderJobParameters_unloadAt_trailer" text="Trailer"/>
-    <text name="CP_siloLoaderJobParameters_unloadAt_unloadTrigger" text="Unload station"/>
+    <text name="CP_siloLoaderJobParameters_subTitle_unloading" text="Descarregar em:"/>
+    <text name="CP_siloLoaderJobParameters_unloadAt_trailer" text="Carreta"/>
+    <text name="CP_siloLoaderJobParameters_unloadAt_unloadTrigger" text="Estação para descarregar"/>
     <!---->
     <!--AI jobs-->
     <!---->
@@ -118,6 +118,36 @@
     <text name="CP_ai_messageErrorGroundUnloadNotSupported" text="AI worker %s has stopped work unexpectedly - não é possível descarregar no campo!"/>
     <text name="CP_ai_messageErrorCutterNotSupported" text="O trabalhador AI %s parou inesperadamente - impossível conectar o equipamento!"/>
     <text name="CP_ai_messageErrorAutomaticCutterAttachNotActive" text="O trabalhador AI %s parou inesperadamente - conexão automática do cortador desativada!"/>
+    <text name="CP_ai_messageErrorWrongMissionFruitType" text="AI worker %s has stopped work unexpectedly - wrong fill type for mission selected!"/>
+    <!---->
+    <!--AI fieldwork task descriptions-->
+    <!---->
+    <text name="CP_ai_taskDescriptionAttachHeader" text="Picks the header up"/>
+    <!---->
+    <!--AI bale finder task descriptions-->
+    <!---->
+    <text name="CP_ai_taskDescriptionCollectsBales" text="Coletar fardos no campo"/>
+    <text name="CP_ai_taskDescriptionWrapsBales" text="Embalar fardos no campo"/>
+    <!---->
+    <!--AI combine unloader task descriptions-->
+    <!---->
+    <text name="CP_ai_taskDescriptionUnloadCombine" text="Descarregar colheitadeira"/>
+    <text name="CP_ai_taskDescriptionWaitsForTargetCombine" text="Aguardando colheitadeira"/>
+    <text name="CP_ai_taskDescriptionUnloadSiloLoader" text="Descarregar"/>
+    <text name="CP_ai_taskDescriptionWaitsForTargetSiloLoader" text="Aguardando carregar"/>
+    <text name="CP_ai_taskDescriptionUnloadingToHeap" text="Descarrega em uma pilha"/>
+    <text name="CP_ai_taskDescriptionUnloadingToTrailer" text="Descarregar na carreta"/>
+    <text name="CP_ai_taskDescriptionUnloadingWithGiants" text="Descarregar com trabalhador giants"/>
+    <!---->
+    <!--AI silo worker task descriptions-->
+    <!---->
+    <text name="CP_ai_taskDescriptionWorksInTheSilo" text="Trabalhos no silo"/>
+    <text name="CP_ai_taskDescriptionWaitsForUnloaders" text="Aguardando descarregador"/>
+    <!---->
+    <!--AI silo loader task descriptions-->
+    <!---->
+    <text name="CP_ai_taskDescriptionWaitsForTrailer" text="Aguardando carretas"/>
+    <text name="CP_ai_taskDescriptionUnloadingToTrigger" text="Descarregar no trigger"/>
     <!---->
     <!--Vehicle settings-->
     <!---->
@@ -182,6 +212,8 @@
     <text name="CP_vehicle_setting_subTitle_bunkerSilo" text="Configuração trabalho no silo"/>
     <text name="CP_vehicle_setting_bunkerSiloWorkWidth_title" text="Largura de trabalho"/>
     <text name="CP_vehicle_setting_bunkerSiloWorkWidth_tooltip" text="Largura de trabalho. Valor: 0 - 50"/>
+    <text name="CP_vehicle_setting_levelerHeightOffset_title" text="Altura."/>
+    <text name="CP_vehicle_setting_levelerHeightOffset_tooltip" text="Altura do solo. Value: 0 - 1"/>
     <text name="CP_vehicle_setting_loadingShovelHeightOffset_title" text="Distãncia da pá carregadeira. Valor: -1 - 1"/>
     <text name="CP_vehicle_setting_loadingShovelHeightOffset_tooltip" text="Distãncia da pá carregadeira. Valor: -1 - 1"/>
     <!---->
@@ -427,6 +459,8 @@ A rota é salva automaticamente ao fechar o editor e substituir a rota seleciona
     <text name="CP_infoTexts_errorGroundUnloadNotSupported" text="Inclinação para o solo não é possível"/>
     <text name="CP_infoTexts_errorCutterNotSupported" text="Cortador não suportado"/>
     <text name="CP_infoTexts_errorAutomaticCutterAttachNotActive" text="Conexão do cortador desativado"/>
+    <text name="CP_infoTexts_errorWrongSeason" text="Wrong season for fruit"/>
+    <text name="CP_infoTexts_errorWrongMissionFruitType" text="Wrong fruit for mission selected"/>
     <!---->
     <!--Custom field manager-->
     <!---->

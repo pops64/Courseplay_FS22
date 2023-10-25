@@ -111,6 +111,10 @@ function AIDriveStrategyCourse:setAIVehicle(vehicle, jobParameters)
     self:initializeImplementControllers(vehicle)
     self.ppc = PurePursuitController(vehicle)
     self.ppc:registerListeners(self, 'onWaypointPassed', 'onWaypointChange')
+
+    self.pathfinderController = PathfinderController(vehicle)
+    self.pathfinderController:registerListeners(self, self.onPathfindingFinished, self.onPathfindingRetry)
+
     self.storage = vehicle.spec_cpAIWorker
 
     self.settings = vehicle:getCpSettings()
@@ -428,8 +432,9 @@ function AIDriveStrategyCourse:getCurrentCourse()
     return self.ppc:getCourse() or self.course
 end
 
-function AIDriveStrategyCourse:update()
+function AIDriveStrategyCourse:update(dt)
     self.ppc:update()
+    self.pathfinderController:update(dt)
     self:updatePathfinding()
     self:updateInfoTexts()
 end
@@ -579,6 +584,24 @@ end
 function AIDriveStrategyCourse:onWaypointPassed(ix, course)
 end
 
+--- Pathfinding has finished
+---@param controller PathfinderController
+---@param success boolean
+---@param course Course|nil
+---@param goalNodeInvalid boolean|nil
+function AIDriveStrategyCourse:onPathfindingFinished(controller, success, course, goalNodeInvalid)
+    -- override
+end
+
+--- Pathfinding failed, but a retry attempt is leftover.
+---@param controller PathfinderController
+---@param lastContext PathfinderControllerContext
+---@param wasLastRetry boolean
+---@param currentRetryAttempt number
+function AIDriveStrategyCourse:onPathfindingRetry(controller, lastContext, wasLastRetry, currentRetryAttempt)
+    -- override
+end
+
 ------------------------------------------------------------------------------------------------------------------------
 --- Pathfinding
 ---------------------------------------------------------------------------------------------------------------------------
@@ -640,10 +663,15 @@ function AIDriveStrategyCourse:isCloseToCourseStart(distance)
     return self.course:getDistanceFromFirstWaypoint(self.ppc:getCurrentWaypointIx()) < distance
 end
 
---- Event raised when the driver has finished.
---- This gets called in the :stopCurrentAIJob(), as the giants code might stop the driver and not the active strategy.
-function AIDriveStrategyCourse:onFinished()
-    self:raiseControllerEvent(self.onFinishedEvent)
+--- Event raised when the driver was stopped.
+---@param hasFinished boolean|nil flag passed by the info text
+function AIDriveStrategyCourse:onFinished(hasFinished)
+    self:raiseControllerEvent(self.onFinishedEvent, hasFinished)
+    if hasFinished and self.settings.foldImplementAtEnd:getValue() then
+        --- Folds implements at the end if the setting is active.
+        self:debug("Finished with folding implements of the implements.")
+        self.vehicle:prepareForAIDriving()
+    end
 end
 
 --- This is to set the offsets on the course at start, or update those values

@@ -118,6 +118,36 @@
     <text name="CP_ai_messageErrorGroundUnloadNotSupported" text="Helfer %s hat die Arbeit gestoppt - abladen auf dem Boden nicht möglich!"/>
     <text name="CP_ai_messageErrorCutterNotSupported" text="Helfer %s hat die Arbeit gestoppt - ankuppelen von dem Schneidwerk nicht möglich!"/>
     <text name="CP_ai_messageErrorAutomaticCutterAttachNotActive" text="Helfer %s hat die Arbeit gestoppt - automatisches Scheidwerk ankuppeln deaktiviert!"/>
+    <text name="CP_ai_messageErrorWrongMissionFruitType" text="Helfer %s hat die Arbeit gestoppt - falsche Frucht für die Mission ausgewählt!"/>
+    <!---->
+    <!--AI fieldwork task descriptions-->
+    <!---->
+    <text name="CP_ai_taskDescriptionAttachHeader" text="Kuppelt das Schneidwerk an"/>
+    <!---->
+    <!--AI bale finder task descriptions-->
+    <!---->
+    <text name="CP_ai_taskDescriptionCollectsBales" text="Sammelt Ballen auf dem Feld"/>
+    <text name="CP_ai_taskDescriptionWrapsBales" text="Wickelt Ballen auf dem Feld"/>
+    <!---->
+    <!--AI combine unloader task descriptions-->
+    <!---->
+    <text name="CP_ai_taskDescriptionUnloadCombine" text="Entlädt Drescher"/>
+    <text name="CP_ai_taskDescriptionWaitsForTargetCombine" text="Wartet auf Drescher"/>
+    <text name="CP_ai_taskDescriptionUnloadSiloLoader" text="Entlädt Lade Fahrzeug"/>
+    <text name="CP_ai_taskDescriptionWaitsForTargetSiloLoader" text="Wartet auf Lade Fahrzeug"/>
+    <text name="CP_ai_taskDescriptionUnloadingToHeap" text="Entlädt auf einem Haufen"/>
+    <text name="CP_ai_taskDescriptionUnloadingToTrailer" text="Entlädt in ein Anhänger"/>
+    <text name="CP_ai_taskDescriptionUnloadingWithGiants" text="Entlädt mit Giants Helfer"/>
+    <!---->
+    <!--AI silo worker task descriptions-->
+    <!---->
+    <text name="CP_ai_taskDescriptionWorksInTheSilo" text="Arbeitet im Silo"/>
+    <text name="CP_ai_taskDescriptionWaitsForUnloaders" text="Wartet auf Ablader"/>
+    <!---->
+    <!--AI silo loader task descriptions-->
+    <!---->
+    <text name="CP_ai_taskDescriptionWaitsForTrailer" text="Wartet auf einen Anhänger"/>
+    <text name="CP_ai_taskDescriptionUnloadingToTrigger" text="Entlädt zu einer Abladestation"/>
     <!---->
     <!--Vehicle settings-->
     <!---->
@@ -182,6 +212,8 @@
     <text name="CP_vehicle_setting_subTitle_bunkerSilo" text="Siloarbeiter Einstellungen"/>
     <text name="CP_vehicle_setting_bunkerSiloWorkWidth_title" text="Arbeitsbreite"/>
     <text name="CP_vehicle_setting_bunkerSiloWorkWidth_tooltip" text="Arbeitsbreite. Wert: 0 - 50"/>
+    <text name="CP_vehicle_setting_levelerHeightOffset_title" text="Versatz Schildhöhe"/>
+    <text name="CP_vehicle_setting_levelerHeightOffset_tooltip" text="Höhenversatz vom Schild zum Boden. Wert: 0 - 1"/>
     <text name="CP_vehicle_setting_loadingShovelHeightOffset_title" text="Versatz Schaufelhöhe."/>
     <text name="CP_vehicle_setting_loadingShovelHeightOffset_tooltip" text="Höhenversatz der Schaufel für die Ladeposition. Wert: -1 - 1"/>
     <!---->
@@ -427,6 +459,8 @@ Der Kurs wird beim Schließen automatisch gespeichert und überschrieben.
     <text name="CP_infoTexts_errorGroundUnloadNotSupported" text="Abladen zum Boden nicht möglich"/>
     <text name="CP_infoTexts_errorCutterNotSupported" text="Schneidwerk nicht unterstützt"/>
     <text name="CP_infoTexts_errorAutomaticCutterAttachNotActive" text="Schneidwerk ankuppeln deaktiviert"/>
+    <text name="CP_infoTexts_errorWrongSeason" text="Falsche Jahreszeit"/>
+    <text name="CP_infoTexts_errorWrongMissionFruitType" text="Falsche Frucht für Mission ausgewählt"/>
     <!---->
     <!--Custom field manager-->
     <!---->
