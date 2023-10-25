@@ -119,6 +119,7 @@
     <text name="CP_ai_messageErrorGroundUnloadNotSupported" text="AI worker %s has stopped work unexpectedly - unloading on the field not possible!"/>
     <text name="CP_ai_messageErrorCutterNotSupported" text="AI worker %s has stopped work unexpectedly - attaching of the header is impossible!"/>
     <text name="CP_ai_messageErrorAutomaticCutterAttachNotActive" text="AI worker %s has stopped work unexpectedly - automatic cutter attach disabled!"/>
+    <text name="CP_ai_messageErrorWrongMissionFruitType" text="AI worker %s has stopped work unexpectedly - wrong fill type for mission selected!"/>
     <!---->
     <!--AI fieldwork task descriptions-->
     <!---->
@@ -146,7 +147,6 @@
     <!---->
     <!--AI silo loader task descriptions-->
     <!---->
-    <text name="CP_ai_taskDescriptionUnloadingToTrailer" text="Unloads into trailer"/>
     <text name="CP_ai_taskDescriptionWaitsForTrailer" text="Waits for a trailer"/>
     <text name="CP_ai_taskDescriptionUnloadingToTrigger" text="Unloads to an unload trigger"/>
     <!---->
@@ -213,6 +213,8 @@
     <text name="CP_vehicle_setting_subTitle_bunkerSilo" text="Siloarbejder indstilling"/>
     <text name="CP_vehicle_setting_bunkerSiloWorkWidth_title" text="Arbejdsbredde"/>
     <text name="CP_vehicle_setting_bunkerSiloWorkWidth_tooltip" text="Arbejdsbredde. Værdi: 0 - 50"/>
+    <text name="CP_vehicle_setting_levelerHeightOffset_title" text="Shield height offset"/>
+    <text name="CP_vehicle_setting_levelerHeightOffset_tooltip" text="Offset of the shield form the ground. Value: 0 - 1"/>
     <text name="CP_vehicle_setting_loadingShovelHeightOffset_title" text="Shovel loading offset. Value: -1 - 1"/>
     <text name="CP_vehicle_setting_loadingShovelHeightOffset_tooltip" text="Shovel loading offset. Value: -1 - 1"/>
     <!---->
@@ -458,6 +460,8 @@ Ruten gemmes automatisk ved lukning af editoren og tilsidesætter den valgte rut
     <text name="CP_infoTexts_errorGroundUnloadNotSupported" text="Tipping to ground not possible"/>
     <text name="CP_infoTexts_errorCutterNotSupported" text="Cutter not supported"/>
     <text name="CP_infoTexts_errorAutomaticCutterAttachNotActive" text="Cutter attaching deactivated"/>
+    <text name="CP_infoTexts_errorWrongSeason" text="Wrong season for fruit"/>
+    <text name="CP_infoTexts_errorWrongMissionFruitType" text="Wrong fruit for mission selected"/>
     <!---->
     <!--Custom field manager-->
     <!---->

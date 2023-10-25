@@ -119,6 +119,7 @@
     <text name="CP_ai_messageErrorGroundUnloadNotSupported" text="Trabajador CP %s ha dejado de trabajar inesperadamente: ¡No es posible descargar en el campo!"/>
     <text name="CP_ai_messageErrorCutterNotSupported" text="Trabajador CP %s ha dejado de trabajar inesperadamente: - ¡Acoplar el cabezal es imposible!"/>
     <text name="CP_ai_messageErrorAutomaticCutterAttachNotActive" text="Trabajador CP %s ha dejado de trabajar inesperadamente: - ¡Acoplamiento automático del cabezal desabilitado!"/>
+    <text name="CP_ai_messageErrorWrongMissionFruitType" text="AI worker %s has stopped work unexpectedly - wrong fill type for mission selected!"/>
     <!---->
     <!--AI fieldwork task descriptions-->
     <!---->
@@ -146,7 +147,6 @@
     <!---->
     <!--AI silo loader task descriptions-->
     <!---->
-    <text name="CP_ai_taskDescriptionUnloadingToTrailer" text="Unloads into trailer"/>
     <text name="CP_ai_taskDescriptionWaitsForTrailer" text="Waits for a trailer"/>
     <text name="CP_ai_taskDescriptionUnloadingToTrigger" text="Unloads to an unload trigger"/>
     <!---->
@@ -213,6 +213,8 @@
     <text name="CP_vehicle_setting_subTitle_bunkerSilo" text="Ajustes de Trabajo en Silo"/>
     <text name="CP_vehicle_setting_bunkerSiloWorkWidth_title" text="Ancho de trabajo"/>
     <text name="CP_vehicle_setting_bunkerSiloWorkWidth_tooltip" text="Ancho de trabajo. Valor: 0 - 50"/>
+    <text name="CP_vehicle_setting_levelerHeightOffset_title" text="Shield height offset"/>
+    <text name="CP_vehicle_setting_levelerHeightOffset_tooltip" text="Offset of the shield form the ground. Value: 0 - 1"/>
     <text name="CP_vehicle_setting_loadingShovelHeightOffset_title" text="Compensación de carga de la pala.  Valor: -1 - 1"/>
     <text name="CP_vehicle_setting_loadingShovelHeightOffset_tooltip" text="Compensación de carga de pala. Valor: -1 - 1"/>
     <!---->
@@ -458,6 +460,8 @@ El curso se guarda automáticamente al cerrar el editor y anula el curso selecci
     <text name="CP_infoTexts_errorGroundUnloadNotSupported" text="No es posible volcar al suelo"/>
     <text name="CP_infoTexts_errorCutterNotSupported" text="Cabezal no compatible"/>
     <text name="CP_infoTexts_errorAutomaticCutterAttachNotActive" text="Acoplamiento automático del cabezal desactivado"/>
+    <text name="CP_infoTexts_errorWrongSeason" text="Wrong season for fruit"/>
+    <text name="CP_infoTexts_errorWrongMissionFruitType" text="Wrong fruit for mission selected"/>
     <!---->
     <!--Custom field manager-->
     <!---->

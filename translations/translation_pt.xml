@@ -119,6 +119,7 @@
     <text name="CP_ai_messageErrorGroundUnloadNotSupported" text="Trabalhador %s parou o serviço de repente - não é possível descarregar no campo!"/>
     <text name="CP_ai_messageErrorCutterNotSupported" text="Trabalhador %s parou o serviço de repente - é impossível conectar a cabeça da ceifeira!"/>
     <text name="CP_ai_messageErrorAutomaticCutterAttachNotActive" text="Trabalhador %s parou o serviço de repente - está desactivo, conectar automaticamente a cabeça da ceifeira!"/>
+    <text name="CP_ai_messageErrorWrongMissionFruitType" text="AI worker %s has stopped work unexpectedly - wrong fill type for mission selected!"/>
     <!---->
     <!--AI fieldwork task descriptions-->
     <!---->
@@ -146,7 +147,6 @@
     <!---->
     <!--AI silo loader task descriptions-->
     <!---->
-    <text name="CP_ai_taskDescriptionUnloadingToTrailer" text="Unloads into trailer"/>
     <text name="CP_ai_taskDescriptionWaitsForTrailer" text="Waits for a trailer"/>
     <text name="CP_ai_taskDescriptionUnloadingToTrigger" text="Unloads to an unload trigger"/>
     <!---->
@@ -213,6 +213,8 @@
     <text name="CP_vehicle_setting_subTitle_bunkerSilo" text="Configurações de Compactar no Silo"/>
     <text name="CP_vehicle_setting_bunkerSiloWorkWidth_title" text="Largura Trabalho"/>
     <text name="CP_vehicle_setting_bunkerSiloWorkWidth_tooltip" text="Largura Trabalho. Valor: 0 - 50"/>
+    <text name="CP_vehicle_setting_levelerHeightOffset_title" text="Shield height offset"/>
+    <text name="CP_vehicle_setting_levelerHeightOffset_tooltip" text="Offset of the shield form the ground. Value: 0 - 1"/>
     <text name="CP_vehicle_setting_loadingShovelHeightOffset_title" text="Shovel loading offset. Value: -1 - 1"/>
     <text name="CP_vehicle_setting_loadingShovelHeightOffset_tooltip" text="Shovel loading offset. Value: -1 - 1"/>
     <!---->
@@ -458,6 +460,8 @@ A rota é guardada automaticamente ao fechar o editor e sobrepõe-se a qualquer 
     <text name="CP_infoTexts_errorGroundUnloadNotSupported" text="Não é possível descarregar para o chão"/>
     <text name="CP_infoTexts_errorCutterNotSupported" text="Cabeça de corte não é suportada"/>
     <text name="CP_infoTexts_errorAutomaticCutterAttachNotActive" text="Conectar a cabeça de corte desactivo"/>
+    <text name="CP_infoTexts_errorWrongSeason" text="Wrong season for fruit"/>
+    <text name="CP_infoTexts_errorWrongMissionFruitType" text="Wrong fruit for mission selected"/>
     <!---->
     <!--Custom field manager-->
     <!---->

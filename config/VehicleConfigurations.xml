@@ -362,7 +362,13 @@ You can define the following custom settings:
 	<Vehicle name="torion1914.xml"
              turnRadius = "12"
     />
+    <vehicle name="torion1511.xml"
+             turnRadius = "9"
+    />
 	<Vehicle name="wheelLoaderShovel.xml"
+             shovelMovingToolIx = "1"
+    />
+	<Vehicle name="overtippingBucket.xml"
              shovelMovingToolIx = "1"
     />
 
@@ -549,4 +555,30 @@ You can define the following custom settings:
 			 disablePipeMovingToolCorrection = "true"
 			 unloadOffsetX = "-3.56"
     />
+
+	<!--Mod: FS22_lizardHTB6000-->
+	<Vehicle name="HTB6000.xml"
+			shovelMovingToolIx = "1"
+	/>
+
+	<!--Mod: FS22_Liebherr_Xpower-->
+	<Vehicle name="highTipShovel.xml"
+			shovelMovingToolIx = "1"
+	/>
+
+	<!--Mod: FS22_bresselUndLadeHighTipShovelPack-->
+	<Vehicle name="bresselUndLadeL67.xml"
+			shovelMovingToolIx = "1"
+	/>
+
+	<!--Mod: FS22_bresselUndLadeHighTipShovelPack-->
+	<Vehicle name="bresselUndLadeL71.xml"
+			shovelMovingToolIx = "1"
+	/>
+
+	<!--Mod: FS22_bresselUndLadeHighTipShovelPack-->
+	<Vehicle name="bresselUndLadeL71.xml"
+			shovelMovingToolIx = "1"
+	/>
+
 </VehicleConfigurations>

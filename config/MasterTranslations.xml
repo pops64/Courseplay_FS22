@@ -385,6 +385,10 @@
 			<Text language="de"><![CDATA[Helfer %s hat die Arbeit gestoppt - automatisches Scheidwerk ankuppeln deaktiviert!]]></Text>
 			<Text language="en"><![CDATA[AI worker %s has stopped work unexpectedly - automatic cutter attach disabled!]]></Text>
 		</Translation>
+		<Translation name="CP_ai_messageErrorWrongMissionFruitType">
+			<Text language="de"><![CDATA[Helfer %s hat die Arbeit gestoppt - falsche Frucht für die Mission ausgewählt!]]></Text>
+			<Text language="en"><![CDATA[AI worker %s has stopped work unexpectedly - wrong fill type for mission selected!]]></Text>
+		</Translation>
 	</Category>
 	<Category name="AI fieldwork task descriptions">	
 		<Translation name="CP_ai_taskDescriptionAttachHeader">
@@ -443,10 +447,6 @@
 		</Translation>
 	</Category>
 	<Category name="AI silo loader task descriptions">	
-		<Translation name="CP_ai_taskDescriptionUnloadingToTrailer">
-			<Text language="de"><![CDATA[Entlädt zu einem Anhänger]]></Text>
-			<Text language="en"><![CDATA[Unloads to a trailer]]></Text>
-		</Translation>
 		<Translation name="CP_ai_taskDescriptionWaitsForTrailer">
 			<Text language="de"><![CDATA[Wartet auf einen Anhänger]]></Text>
 			<Text language="en"><![CDATA[Waits for a trailer]]></Text>
@@ -690,6 +690,14 @@
 		<Translation name="CP_vehicle_setting_bunkerSiloWorkWidth_tooltip">
 			<Text language="de"><![CDATA[Arbeitsbreite. Wert: 0 - 50]]></Text>
 			<Text language="en"><![CDATA[Work width. Value: 0 - 50]]></Text>
+		</Translation>
+		<Translation name="CP_vehicle_setting_levelerHeightOffset_title">
+			<Text language="de"><![CDATA[Versatz Schildhöhe]]></Text>
+			<Text language="en"><![CDATA[Shield height offset]]></Text>
+		</Translation>
+		<Translation name="CP_vehicle_setting_levelerHeightOffset_tooltip">
+			<Text language="de"><![CDATA[Höhenversatz vom Schild zum Boden. Wert: 0 - 1]]></Text>
+			<Text language="en"><![CDATA[Offset of the shield form the ground. Value: 0 - 1]]></Text>
 		</Translation>
 		<Translation name="CP_vehicle_setting_loadingShovelHeightOffset_title">
 			<Text language="de"><![CDATA[Versatz Schaufelhöhe.]]></Text>
@@ -1613,6 +1621,14 @@ The course is saved automatically on closing of the editor and overrides the sel
 		<Translation name="CP_infoTexts_errorAutomaticCutterAttachNotActive">
 			<Text language="de"><![CDATA[Schneidwerk ankuppeln deaktiviert]]></Text>
 			<Text language="en"><![CDATA[Cutter attaching deactivated]]></Text>
+		</Translation>
+		<Translation name="CP_infoTexts_errorWrongSeason">
+			<Text language="de"><![CDATA[Falsche Jahreszeit]]></Text>
+			<Text language="en"><![CDATA[Wrong season for fruit]]></Text>
+		</Translation>
+		<Translation name="CP_infoTexts_errorWrongMissionFruitType">
+			<Text language="de"><![CDATA[Falsche Frucht für Mission ausgewählt]]></Text>
+			<Text language="en"><![CDATA[Wrong fruit for mission selected]]></Text>
 		</Translation>
 	</Category>
 	<Category name="Custom field manager">	

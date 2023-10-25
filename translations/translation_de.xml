@@ -119,6 +119,7 @@
     <text name="CP_ai_messageErrorGroundUnloadNotSupported" text="Helfer %s hat die Arbeit gestoppt - abladen auf dem Boden nicht möglich!"/>
     <text name="CP_ai_messageErrorCutterNotSupported" text="Helfer %s hat die Arbeit gestoppt - ankuppelen von dem Schneidwerk nicht möglich!"/>
     <text name="CP_ai_messageErrorAutomaticCutterAttachNotActive" text="Helfer %s hat die Arbeit gestoppt - automatisches Scheidwerk ankuppeln deaktiviert!"/>
+    <text name="CP_ai_messageErrorWrongMissionFruitType" text="Helfer %s hat die Arbeit gestoppt - falsche Frucht für die Mission ausgewählt!"/>
     <!---->
     <!--AI fieldwork task descriptions-->
     <!---->
@@ -146,7 +147,6 @@
     <!---->
     <!--AI silo loader task descriptions-->
     <!---->
-    <text name="CP_ai_taskDescriptionUnloadingToTrailer" text="Entlädt zu einem Anhänger"/>
     <text name="CP_ai_taskDescriptionWaitsForTrailer" text="Wartet auf einen Anhänger"/>
     <text name="CP_ai_taskDescriptionUnloadingToTrigger" text="Entlädt zu einer Abladestation"/>
     <!---->
@@ -213,6 +213,8 @@
     <text name="CP_vehicle_setting_subTitle_bunkerSilo" text="Siloarbeiter Einstellungen"/>
     <text name="CP_vehicle_setting_bunkerSiloWorkWidth_title" text="Arbeitsbreite"/>
     <text name="CP_vehicle_setting_bunkerSiloWorkWidth_tooltip" text="Arbeitsbreite. Wert: 0 - 50"/>
+    <text name="CP_vehicle_setting_levelerHeightOffset_title" text="Versatz Schildhöhe"/>
+    <text name="CP_vehicle_setting_levelerHeightOffset_tooltip" text="Höhenversatz vom Schild zum Boden. Wert: 0 - 1"/>
     <text name="CP_vehicle_setting_loadingShovelHeightOffset_title" text="Versatz Schaufelhöhe."/>
     <text name="CP_vehicle_setting_loadingShovelHeightOffset_tooltip" text="Höhenversatz der Schaufel für die Ladeposition. Wert: -1 - 1"/>
     <!---->
@@ -458,6 +460,8 @@ Der Kurs wird beim Schließen automatisch gespeichert und überschrieben.
     <text name="CP_infoTexts_errorGroundUnloadNotSupported" text="Abladen zum Boden nicht möglich"/>
     <text name="CP_infoTexts_errorCutterNotSupported" text="Schneidwerk nicht unterstützt"/>
     <text name="CP_infoTexts_errorAutomaticCutterAttachNotActive" text="Schneidwerk ankuppeln deaktiviert"/>
+    <text name="CP_infoTexts_errorWrongSeason" text="Falsche Jahreszeit"/>
+    <text name="CP_infoTexts_errorWrongMissionFruitType" text="Falsche Frucht für Mission ausgewählt"/>
     <!---->
     <!--Custom field manager-->
     <!---->
